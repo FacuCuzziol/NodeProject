@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 const Viaje = require('../models/Viajes');
-
+const Testimonial = require('../models/Testimoniales');
 module.exports = function(){
     
     router.get('/',(req,res) =>{
@@ -34,6 +34,47 @@ module.exports = function(){
             .catch(error => console.log(error));
     });
 
+    router.get('/testimoniales',(req,res) =>{
+        Testimonial.findAll()
+            .then(testimoniales => res.render('testimoniales',{
+                pagina : 'Testimoniales',
+                testimoniales
+            }))
+    });
+
+    //cdo lleno el formulario
+    router.post('/testimoniales',(req,res) =>{
+        let {nombre,correo,mensaje} = req.body;
+
+        let errores = [];
+        if(!nombre){
+            errores.push({'mensaje': 'Agrega tu nombre'});
+        }
+        if(!correo){
+            errores.push({'mensaje':'Agrega tu email'});
+        }
+        if(!mensaje){
+            errores.push({'mensaje':'Agrega tu mensaje'});
+        }
+
+
+        //check errors
+
+        if(errores.length > 0){
+            res.render('testimoniales',{
+                errores,
+                nombre,
+                correo,
+                mensaje
+            });
+        }else{
+            Testimonial.create({
+                nombre,
+                correo,mensaje
+            }).then(testimonial => res.redirect('/testimoniales'))
+            .catch(error=> console.log(error));
+        }
+    })
 
     return router;
 }

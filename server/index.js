@@ -2,7 +2,7 @@
 const express = require('express');
 const path = require('path');
 const routes = require('./routes');
-
+const bodyParser = require('body-parser');
 const configs = require('./config');
 const db = require('./config/database');
 db.authenticate()
@@ -38,6 +38,8 @@ app.use((req,res,next) =>{
     return next();
 })
 
+
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use('/',routes());
 
