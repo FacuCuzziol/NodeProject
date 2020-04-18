@@ -5,6 +5,8 @@ const homeController = require('../controllers/homeController');
 const viajesController = require('../controllers/viajesController');
 const testimonialesController = require('../controllers/testimonialesController');
 
+
+
 module.exports = function(){
     
     router.get('/',homeController.consultasHomepage);

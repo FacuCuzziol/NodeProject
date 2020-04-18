@@ -5,6 +5,9 @@ const routes = require('./routes');
 const bodyParser = require('body-parser');
 const configs = require('./config');
 const db = require('./config/database');
+
+require('dotenv').config({path:'variables.env'});
+
 db.authenticate()
     .then(() =>console.log('DB conectada'))
     .catch(error => console.log(error));
@@ -45,4 +48,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.use('/',routes());
 
-app.listen(3000);
+const host = process.env.HOST || '0.0.0.0';
+const port = process.env.PORT || 3000;
+app.listen(port,host, () =>{
+    console.log('el servidor esta funcionando');
+});
