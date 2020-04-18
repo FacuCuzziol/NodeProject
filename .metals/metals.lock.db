@@ -1,0 +1,6 @@
+#FileLock
+#Fri Apr 17 20:55:36 ART 2020
+server=localhost\:55666
+hostName=localhost
+method=file
+id=1718a91b44e6cc6344d099499da1887040e52051a55
